@@ -244,6 +244,8 @@ svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-widt
   font-size: clamp(2.2rem, 4.5vw, 3.2rem); letter-spacing: -.02em;
 }
 
+.section__intro { color: var(--muted); margin: -24px 0 32px; max-width: 60ch; }
+
 /* ---------- About ---------- */
 .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; }
 .about__text p { color: var(--muted); }
