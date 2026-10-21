@@ -1,0 +1,19 @@
+# Augusto Roubineau
+
+> Pasante de Ingeniería en OneCloud (Powercloud), Buenos Aires. Trabaja en infraestructura, backup y cloud, con la mira puesta en DevOps y operaciones.
+
+## Experiencia
+- OneCloud (2026–actualidad): implementación de backup con Veeam (Hardened Repository inmutable, RAID, Ubuntu), aprovisionamiento de VMs en VMware Cloud Director, laboratorio Nutanix, entornos de demo para preventa.
+- Amcor (2024–2026), Pasante IT: soporte, ServiceNow, Active Directory, MFA, Intune, SCCM, migración a Windows 11.
+
+## Formación
+- Lic. en Gestión de Tecnologías de la Información, UADE (en curso).
+- Cisco CCNA: Introduction to Networks (julio 2026): https://www.credly.com/badges/c0ada273-9094-40ec-8549-789f08a2c60e/public_url
+
+## Proyectos
+- GrimWolf Gym: https://www.grimwolf.com.ar/
+- Molino Ñangapirí (propuesta de sitio): https://augstr.github.io/Molino-Nangapiri/
+
+## Contacto
+- Email: augustoroubineau@gmail.com
+- LinkedIn: https://www.linkedin.com/in/augusto-roubineau-8aa39b226
