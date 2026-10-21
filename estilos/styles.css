@@ -335,7 +335,7 @@ svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-widt
 .edu__year { display: block; font-family: var(--mono); font-size: .75rem; color: var(--accent); margin-bottom: 12px; }
 .edu__card h3 { font-size: 1.1rem; margin-bottom: 6px; }
 .edu__inst { font-size: .9rem; font-weight: 500; margin-bottom: 10px; }
-.edu__card p:last-child { color: var(--muted); font-size: .92rem; margin: 0; }
+.edu__card p:last-of-type:not(.edu__inst) { color: var(--muted); font-size: .92rem; margin: 0; }
 
 /* ---------- Skills ---------- */
 .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
@@ -384,6 +384,18 @@ a.project:hover { border-color: var(--accent); transform: translateY(-4px); }
   transition: color .3s, transform .3s;
 }
 a.project:hover .project__arrow { color: var(--accent); transform: translate(3px, -3px); }
+.project__link {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
+  font-size: .8rem; color: var(--muted); transition: color .3s;
+}
+a.project:hover .project__link { color: var(--accent); }
+
+.edu__cred {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+  font-family: var(--mono); font-size: .8rem; color: var(--accent);
+  border-bottom: 1px solid transparent; transition: border-color .3s;
+}
+.edu__cred:hover { border-color: var(--accent); }
 
 /* ---------- Contact ---------- */
 .contact { padding-top: 120px; padding-bottom: 40px; }
