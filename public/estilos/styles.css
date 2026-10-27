@@ -441,6 +441,93 @@ a.project:hover .project__link { color: var(--accent); }
 }
 .footer a:hover { color: var(--accent); }
 
+/* ---------- Skills: lista corta ---------- */
+.tags--big { gap: 10px; margin-bottom: 40px; }
+.tags--big li { font-size: .85rem; padding: 8px 14px; border-radius: 999px; color: var(--text); }
+
+/* ---------- Projects: tarjetas con captura ---------- */
+
+.project--case { padding: 0; overflow: hidden; }
+.project--case:hover { border-color: var(--accent); }
+.project--case > :not(.project__media) { margin-left: 28px; margin-right: 28px; }
+.project--case .project__year { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.project--case .tags { margin-bottom: 4px; }
+.project__media {
+  display: block; aspect-ratio: 16 / 9; overflow: hidden;
+  background: var(--bg-2); border-bottom: 1px solid var(--line);
+}
+.project__media img, .project__media picture { display: block; width: 100%; height: 100%; }
+.project__media img { object-fit: cover; object-position: top center; transition: transform .6s ease; }
+.project--case:hover .project__media img { transform: scale(1.03); }
+.project__title { transition: color .25s; }
+.project__title:hover { color: var(--accent); }
+.project__badge {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .04em;
+  padding: 3px 8px; border-radius: 999px;
+  color: var(--live); border: 1px solid currentColor;
+}
+.project__actions {
+  display: flex; flex-wrap: wrap; gap: 6px 18px;
+  margin-top: 18px; margin-bottom: 24px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.project__actions a { color: var(--muted); transition: color .25s; }
+.project__actions a:hover, .project__more { color: var(--accent); }
+.project__term {
+  height: 100%; margin: 0; padding: 22px 24px;
+  font-family: var(--mono); font-size: .78rem; line-height: 1.9;
+  color: var(--live); background: #0a0a0c; white-space: pre; overflow: hidden;
+}
+.project__term--big { padding: 40px; font-size: .95rem; border-radius: var(--radius); overflow-x: auto; }
+
+/* ---------- Página de caso ---------- */
+.case { padding-top: 120px; padding-bottom: 40px; }
+.case__back { display: inline-block; color: var(--muted); margin-bottom: 36px; transition: color .25s; }
+.case__back:hover { color: var(--accent); }
+.case__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; color: var(--accent); margin-bottom: 18px; }
+.case__meta span + span:not(.project__badge)::before { content: "·"; margin-right: 16px; color: var(--muted); }
+.case__title {
+  font-family: var(--serif); font-weight: 400; letter-spacing: -.02em;
+  font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.05; margin-bottom: 20px;
+}
+.case__lead { color: var(--muted); font-size: 1.12rem; max-width: 62ch; margin-bottom: 28px; }
+.case__links { display: flex; flex-wrap: wrap; gap: 12px; }
+.case__shot {
+  margin: 56px 0; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--bg-2);
+}
+.case__shot img { display: block; width: 100%; height: auto; }
+.case__grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
+.case__block {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 30px;
+}
+.case__block h2 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; margin-bottom: 16px; }
+.case__block > p { color: var(--muted); max-width: 64ch; }
+.case__block .bullets { margin-bottom: 0; }
+.case__block code { font-family: var(--mono); font-size: .85em; color: var(--text); }
+.case__nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 56px; }
+.case__nav a {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 22px 26px; border: 1px solid var(--line); border-radius: var(--radius);
+  font-family: var(--serif); font-size: 1.25rem; transition: border-color .25s;
+}
+.case__nav a:hover { border-color: var(--accent); }
+.case__nav .mono { color: var(--muted); }
+.case__next { text-align: right; }
+
+@media (max-width: 820px) {
+  .case__grid, .case__nav { grid-template-columns: 1fr; }
+  .case__next { text-align: left; }
+}
+@media (max-width: 600px) {
+  .project--case { padding: 0; }
+  .project--case > :not(.project__media) { margin-left: 20px; margin-right: 20px; }
+  .case { padding-top: 96px; }
+  .case__block { padding: 22px; }
+  .case__shot { margin: 36px 0; }
+}
+
 /* ---------- Reveal animation ---------- */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }

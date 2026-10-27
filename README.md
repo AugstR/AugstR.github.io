@@ -15,8 +15,12 @@ Publicado en https://augstr.github.io/.
 
 | Archivo | Qué hace |
 |---|---|
-| `src/data/cv.ts` | Todo el contenido que cambia: trabajos, estudios, skills, idiomas y proyectos |
-| `src/pages/index.astro` | La página: arma cada sección a partir de los datos |
+| `src/data/cv.ts` | Trabajos, estudios, skills e idiomas |
+| `src/data/proyectos.ts` | Los proyectos: tarjeta, tipo, caso completo y links |
+| `src/assets/proyectos/` | Captura de cada proyecto (`<slug>.jpg`), que Astro optimiza a AVIF y WebP |
+| `src/layouts/Base.astro` | Estructura común: `<head>`, menú y pie |
+| `src/pages/index.astro` | La portada: arma cada sección a partir de los datos |
+| `src/pages/proyectos/[slug].astro` | La página de caso de cada proyecto (`/proyectos/<slug>/`) |
 | `public/estilos/styles.css` | Estilos, variables de color para los dos temas y diseño responsive |
 | `public/js/main.js` | Cambio de tema (se recuerda en `localStorage`), menú mobile, animaciones de aparición con `IntersectionObserver` y link activo del menú |
 | `public/img/` | Foto y logo |
@@ -26,7 +30,8 @@ El tema se aplica con un script mínimo en el `<head>` para que la página no "p
 
 ## Cómo actualizar
 
-- **Un proyecto nuevo:** sumar un objeto a `PROYECTOS` en `src/data/cv.ts` (etiqueta, título, descripción, tags y link).
+- **Un proyecto nuevo:** sumar un objeto a `PROYECTOS` en `src/data/proyectos.ts` y su captura en
+  `src/assets/proyectos/<slug>.jpg` (ideal 1568 × 744 o 16:9). Su página de caso se genera sola.
 - **Un trabajo o estudio nuevo:** sumarlo arriba de todo en `EXPERIENCIA` o `FORMACION`.
 - Los textos con negrita se escriben con `<strong>`.
 

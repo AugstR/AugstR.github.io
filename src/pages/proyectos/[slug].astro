@@ -1,0 +1,82 @@
+---
+// Página de caso de cada proyecto: /proyectos/<slug>/
+import { Picture, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { PROYECTOS, TIPOS, capturaDe, type Proyecto } from '../../data/proyectos';
+
+export function getStaticPaths() {
+  return PROYECTOS.map((p, i) => ({
+    params: { slug: p.slug },
+    props: {
+      p,
+      anterior: PROYECTOS[(i - 1 + PROYECTOS.length) % PROYECTOS.length],
+      siguiente: PROYECTOS[(i + 1) % PROYECTOS.length],
+    },
+  }));
+}
+
+interface Props { p: Proyecto; anterior: Proyecto; siguiente: Proyecto }
+const { p, anterior, siguiente } = Astro.props;
+
+const foto = capturaDe(p.slug);
+// Imagen para cuando se comparte el link (LinkedIn, WhatsApp): la captura del proyecto
+const og = foto ? await getImage({ src: foto, width: 1200, format: 'jpg' }) : null;
+const ogImage = og ? new URL(og.src, Astro.site).href : undefined;
+---
+<Base
+  title={`${p.titulo} · Proyectos · Augusto Roubineau`}
+  description={p.descripcion}
+  ogTitle={`${p.titulo} · Augusto Roubineau`}
+  ogImage={ogImage}
+>
+  <article class="case container">
+    <a class="case__back mono" href="/#proyectos">← Todos los proyectos</a>
+
+    <header class="case__head reveal">
+      <p class="case__meta mono">
+        <span>{p.etiqueta}</span>
+        <span>{TIPOS[p.tipo]}</span>
+        {p.equipo && <span>{p.equipo}</span>}
+        {p.destacado && <span class="project__badge">{p.destacado}</span>}
+      </p>
+      <h1 class="case__title">{p.titulo}</h1>
+      <p class="case__lead">{p.descripcion}</p>
+      {(p.links.demo || p.links.codigo) && (
+        <div class="case__links">
+          {p.links.demo && <a class="btn btn--primary" href={p.links.demo} target="_blank" rel="noopener">{p.links.textoDemo ?? 'Ver sitio'} ↗</a>}
+          {p.links.codigo && <a class="btn btn--ghost" href={p.links.codigo} target="_blank" rel="noopener">Ver código ↗</a>}
+        </div>
+      )}
+    </header>
+
+    <figure class="case__shot reveal">
+      {foto
+        ? <Picture src={foto} formats={['avif', 'webp']} widths={[800, 1568]} sizes="(max-width: 1120px) 100vw, 1072px" alt={`Captura de ${p.titulo}`} loading="eager" />
+        : <pre class="project__term project__term--big">{(p.sinCaptura ?? []).join('\n')}</pre>}
+    </figure>
+
+    <div class="case__grid">
+      <section class="case__block reveal">
+        <h2>De qué se trata</h2>
+        <p>{p.caso.contexto}</p>
+      </section>
+      <aside class="case__block case__stack reveal">
+        <h2>Stack</h2>
+        <ul class="tags">{p.caso.stack.map((s) => <li>{s}</li>)}</ul>
+      </aside>
+      <section class="case__block reveal">
+        <h2>Qué tiene</h2>
+        <ul class="bullets">{p.caso.incluye.map((t) => <li set:html={t} />)}</ul>
+      </section>
+      <section class="case__block reveal">
+        <h2>Cómo está hecho</h2>
+        <ul class="bullets">{p.caso.tecnica.map((t) => <li set:html={t} />)}</ul>
+      </section>
+    </div>
+
+    <nav class="case__nav" aria-label="Otros proyectos">
+      <a href={`/proyectos/${anterior.slug}/`}><span class="mono">← Anterior</span>{anterior.titulo}</a>
+      <a href={`/proyectos/${siguiente.slug}/`} class="case__next"><span class="mono">Siguiente →</span>{siguiente.titulo}</a>
+    </nav>
+  </article>
+</Base>

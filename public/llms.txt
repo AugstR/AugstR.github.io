@@ -11,8 +11,13 @@
 - Cisco CCNA: Introduction to Networks (julio 2026): https://www.credly.com/badges/c0ada273-9094-40ec-8549-789f08a2c60e/public_url
 
 ## Proyectos
-- GrimWolf Gym: https://www.grimwolf.com.ar/
-- Molino Ñangapirí (propuesta de sitio): https://augstr.github.io/Molino-Nangapiri/
+Cada proyecto tiene su página de caso en https://augstr.github.io/proyectos/<slug>/
+- GrimWolf Gym (sitio con tienda, TP UADE): https://www.grimwolf.com.ar/ · caso: https://augstr.github.io/proyectos/grimwolf/
+- UniFlow, buscador de carreras (Next.js, Prisma, MCP; TP UADE): https://uniflow2.vercel.app/ · caso: https://augstr.github.io/proyectos/uniflow/
+- Store TPO, e-commerce (Spring Boot, React, Docker; TP UADE): https://augstr.github.io/API-Clases/ · caso: https://augstr.github.io/proyectos/store-tpo/
+- App de inventario para un taller (PWA offline): https://augstr.github.io/proyectos/inventario/
+- Molino Ñangapirí (propuesta de sitio, Astro + GSAP): https://augstr.github.io/Molino-Nangapiri/ · caso: https://augstr.github.io/proyectos/molino/
+- TacuarArte (sitio de un taller artesanal, Astro): https://tacuararte.com.ar/ · caso: https://augstr.github.io/proyectos/tacuararte/
 
 ## Contacto
 - Email: augustoroubineau@gmail.com

@@ -1,5 +1,8 @@
 ---
-import { CREDLY_CCNA, EMAIL, EXPERIENCIA, FORMACION, GITHUB, IDIOMAS, LINKEDIN, PROYECTOS, SKILLS } from '../data/cv';
+import { CREDLY_CCNA, EMAIL, EXPERIENCIA, FORMACION, GITHUB, IDIOMAS, LINKEDIN, SKILLS } from '../data/cv';
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { PROYECTOS, capturaDe } from '../data/proyectos';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -26,64 +29,14 @@ const schema = {
 const iconoLinkedin = 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z';
 const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z';
 ---
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Augusto Roubineau · Infraestructura & Cloud</title>
-  <meta name="description" content="Augusto Roubineau — Pasante de Ingeniería en OneCloud (Powercloud): backup con Veeam, VMware Cloud Director y Nutanix. Ex Pasante IT en Amcor y estudiante de Gestión de Tecnologías de la Información en UADE.">
-  <meta name="theme-color" content="#0d0d0f">
-  <link rel="canonical" href="https://augstr.github.io/">
-  <meta property="og:type" content="profile">
-  <meta property="og:url" content="https://augstr.github.io/">
-  <meta property="og:title" content="Augusto Roubineau · Infraestructura & Cloud">
-  <meta property="og:description" content="Pasante de Ingeniería en OneCloud: backup con Veeam, VMware Cloud Director y Nutanix. Cisco CCNA: Introduction to Networks.">
-  <meta property="og:image" content="https://augstr.github.io/img/Augusto2.jpg">
-  <meta property="og:locale" content="es_AR">
-  <meta name="twitter:card" content="summary">
-  <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
-  <link rel="icon" href="img/Logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilos/styles.css?v=5">
-  <script is:inline>
-    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
-  </script>
-</head>
-<body>
-
-  <!-- ============ NAV ============ -->
-  <header class="nav" id="top">
-    <div class="nav__inner container">
-      <a href="#top" class="nav__brand" aria-label="Inicio">
-        <span class="monogram">AR</span>
-        <span class="nav__name">Augusto Roubineau</span>
-      </a>
-
-      <nav class="nav__links" id="menu" aria-label="Secciones">
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#experiencia">Experiencia</a>
-        <a href="#formacion">Formación</a>
-        <a href="#skills">Skills</a>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#contacto" class="nav__cta">Contacto</a>
-      </nav>
-
-      <div class="nav__actions">
-        <button class="icon-btn" id="themeToggle" aria-label="Cambiar tema">
-          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-        </button>
-        <button class="icon-btn nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
-          <span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main>
+<Base
+  title="Augusto Roubineau · Infraestructura & Cloud"
+  description="Augusto Roubineau — Pasante de Ingeniería en OneCloud (Powercloud): backup con Veeam, VMware Cloud Director y Nutanix. Ex Pasante IT en Amcor y estudiante de Gestión de Tecnologías de la Información en UADE."
+  ogDescription="Pasante de Ingeniería en OneCloud: backup con Veeam, VMware Cloud Director y Nutanix. Cisco CCNA: Introduction to Networks."
+  ogType="profile"
+  schema={schema}
+  inicio
+>
 
     <!-- ============ HERO ============ -->
     <section class="hero container">
@@ -94,11 +47,10 @@ const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3
         </h1>
         <p class="hero__lead reveal">
           Infraestructura, backup y cloud. Implemento soluciones de respaldo,
-          virtualización y nube para clientes corporativos, con la mira puesta en
-          <span class="hl">DevOps y operaciones</span>.
+          virtualización y nube para clientes corporativos, con la mira puesta en <span class="hl">DevOps y operaciones</span>.
         </p>
         <div class="hero__buttons reveal">
-          <a class="btn btn--primary" href="#contacto">Hablemos</a>
+          <a class="btn btn--primary" href="#proyectos">Ver proyectos</a>
           <a class="btn btn--ghost" href={LINKEDIN} target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d={iconoLinkedin}/></svg>
             LinkedIn
@@ -113,7 +65,7 @@ const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3
 
       <figure class="hero__photo reveal">
         <div class="photo-frame">
-          <img src="img/Augusto2.jpg" alt="Retrato de Augusto Roubineau" width="663" height="712">
+          <img src="/img/Augusto2.jpg" alt="Retrato de Augusto Roubineau" width="663" height="712">
         </div>
         <figcaption>
           <span class="mono">📍 Buenos Aires, AR</span>
@@ -161,13 +113,6 @@ const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3
             <li>DevOps</li>
             <li>Redes</li>
           </ul>
-          <h3>Cómo trabajo</h3>
-          <ul class="ticks">
-            <li>Proactivo y orientado a resolver</li>
-            <li>Escucha activa con el usuario</li>
-            <li>Documento lo que hago</li>
-            <li>Suma al equipo antes que al ego</li>
-          </ul>
         </aside>
       </div>
     </section>
@@ -176,7 +121,7 @@ const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3
     <section class="section container" id="experiencia">
       <header class="section__head reveal">
         <span class="section__num">02</span>
-        <h2>Experiencia</h2>
+        <h2>Experiencia profesional</h2>
       </header>
 
       <ol class="timeline">
@@ -202,10 +147,66 @@ const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3
       </ol>
     </section>
 
+    <!-- ============ PROYECTOS ============ -->
+    <section class="section container" id="proyectos">
+      <header class="section__head reveal">
+        <span class="section__num">03</span>
+        <h2>Proyectos</h2>
+      </header>
+
+      <div class="projects">
+        {PROYECTOS.map((p) => {
+          const foto = capturaDe(p.slug);
+          const caso = `/proyectos/${p.slug}/`;
+          return (
+            <article class="project project--case reveal">
+              <a class="project__media" href={caso} tabindex="-1" aria-hidden="true">
+                {foto
+                  ? <Picture src={foto} formats={['avif', 'webp']} widths={[480, 960]} sizes="(max-width: 600px) 100vw, 540px" alt="" />
+                  : <pre class="project__term">{(p.sinCaptura ?? []).join('\n')}</pre>}
+              </a>
+              <span class="project__year mono">
+                {p.etiqueta}
+                {p.destacado && <span class="project__badge">{p.destacado}</span>}
+              </span>
+              <h3><a class="project__title" href={caso}>{p.titulo}</a></h3>
+              <p>{p.descripcion}</p>
+              <ul class="tags">{p.tags.map((tag) => <li>{tag}</li>)}</ul>
+              <div class="project__actions mono">
+                <a class="project__more" href={caso}>Ver caso →</a>
+                {p.links.demo && <a href={p.links.demo} target="_blank" rel="noopener">{p.links.textoDemo ?? 'Ver sitio'} ↗</a>}
+                {p.links.codigo && <a href={p.links.codigo} target="_blank" rel="noopener">Código ↗</a>}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section container" id="skills">
+      <header class="section__head reveal">
+        <span class="section__num">04</span>
+        <h2>Skills</h2>
+      </header>
+
+      <ul class="tags tags--big reveal">{SKILLS.map((t) => <li>{t}</li>)}</ul>
+
+      <div class="langs reveal">
+        <h3>Idiomas</h3>
+        {IDIOMAS.map((i) => (
+          <div class="lang">
+            <span>{i.idioma}</span><span class="mono">{i.nivel}</span>
+            <div class="bar"><i style={`--w:${i.porcentaje}%`}></i></div>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- ============ FORMACIÓN ============ -->
     <section class="section container" id="formacion">
       <header class="section__head reveal">
-        <span class="section__num">03</span>
+        <span class="section__num">05</span>
         <h2>Formación</h2>
       </header>
 
@@ -219,68 +220,6 @@ const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3
             {e.credencial && <a class="edu__cred" href={e.credencial.url} target="_blank" rel="noopener">{e.credencial.texto}</a>}
           </article>
         ))}
-      </div>
-    </section>
-
-    <!-- ============ SKILLS ============ -->
-    <section class="section container" id="skills">
-      <header class="section__head reveal">
-        <span class="section__num">04</span>
-        <h2>Skills</h2>
-      </header>
-
-      <div class="skills">
-        {SKILLS.map((s) => (
-          <article class="skill reveal">
-            <div class="skill__icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={s.icono} />
-            </div>
-            <h3>{s.titulo}</h3>
-            <ul class="tags">{s.tags.map((tag) => <li>{tag}</li>)}</ul>
-          </article>
-        ))}
-      </div>
-
-      <div class="langs reveal">
-        <h3>Idiomas</h3>
-        {IDIOMAS.map((i) => (
-          <div class="lang">
-            <span>{i.idioma}</span><span class="mono">{i.nivel}</span>
-            <div class="bar"><i style={`--w:${i.porcentaje}%`}></i></div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- ============ PROYECTOS ============ -->
-    <section class="section container" id="proyectos">
-      <header class="section__head reveal">
-        <span class="section__num">05</span>
-        <h2>Proyectos</h2>
-      </header>
-
-      <p class="section__intro reveal">Sitios publicados y trabajos prácticos de la facultad (UADE), la mayoría hechos en equipo.</p>
-
-      <div class="projects">
-        {PROYECTOS.map((p) => {
-          const contenido = (
-            <>
-              <span class="project__year mono">{p.etiqueta}</span>
-              <h3>{p.titulo}</h3>
-              <p>{p.descripcion}</p>
-              <ul class="tags">{p.tags.map((tag) => <li>{tag}</li>)}</ul>
-            </>
-          );
-          return p.url ? (
-            <a class="project reveal" href={p.url} target="_blank" rel="noopener">
-              {contenido}
-              <span class="project__link mono">{p.textoLink}</span>
-              <span class="project__arrow" aria-hidden="true">↗</span>
-            </a>
-          ) : (
-            <article class="project reveal">{contenido}</article>
-          );
-        })}
       </div>
     </section>
 
@@ -303,13 +242,4 @@ const iconoGithub = 'M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3
       </div>
     </section>
 
-  </main>
-
-  <footer class="footer container">
-    <span>© {new Date().getFullYear()} Augusto Roubineau</span>
-    <a href="#top" class="mono">Volver arriba ↑</a>
-  </footer>
-
-  <script is:inline src="js/main.js?v=2"></script>
-</body>
-</html>
+</Base>
