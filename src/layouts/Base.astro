@@ -1,5 +1,14 @@
 ---
 // Estructura común: <head>, menú y pie. La usan la portada y las páginas de cada proyecto.
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-400-italic.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description: string;
@@ -24,6 +33,7 @@ const {
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ir = (id: string) => (inicio ? `#${id}` : `/#${id}`);
+const actualizado = new Date().toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -32,7 +42,8 @@ const ir = (id: string) => (inicio ? `#${id}` : `/#${id}`);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
-  <meta name="theme-color" content="#0d0d0f">
+  <meta name="theme-color" content="#f3f1ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href={canonical}>
   <meta property="og:type" content={ogType}>
   <meta property="og:url" content={canonical}>
@@ -43,22 +54,18 @@ const ir = (id: string) => (inicio ? `#${id}` : `/#${id}`);
   <meta name="twitter:card" content={ogImage.includes('/_astro/') ? 'summary_large_image' : 'summary'}>
   {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />}
   <link rel="icon" href="/img/Logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/estilos/styles.css?v=7">
   <script is:inline>
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
+  <ClientRouter />
 </head>
 <body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav" id="top">
+  <header class="nav">
     <div class="nav__inner container">
-      <a href={inicio ? '#top' : '/'} class="nav__brand" aria-label="Inicio">
-        <span class="monogram">AR</span>
-        <span class="nav__name">Augusto Roubineau</span>
+      <a href={inicio ? '#contenido' : '/'} class="nav__brand">
+        Augusto Roubineau <span class="nav__path mono">/ cv</span>
       </a>
 
       <nav class="nav__links" id="menu" aria-label="Secciones">
@@ -67,7 +74,8 @@ const ir = (id: string) => (inicio ? `#${id}` : `/#${id}`);
         <a href={ir('proyectos')}>Proyectos</a>
         <a href={ir('skills')}>Skills</a>
         <a href={ir('formacion')}>Formación</a>
-        <a href={ir('contacto')} class="nav__cta">Contacto</a>
+        <a href={ir('contacto')}>Contacto</a>
+        <a href="/cv.pdf" class="nav__cta mono" data-astro-reload>CV en PDF ↓</a>
       </nav>
 
       <div class="nav__actions">
@@ -82,15 +90,17 @@ const ir = (id: string) => (inicio ? `#${id}` : `/#${id}`);
     </div>
   </header>
 
-  <main>
+  <main id="contenido" tabindex="-1">
     <slot />
   </main>
 
-  <footer class="footer container">
-    <span>© {new Date().getFullYear()} Augusto Roubineau</span>
-    <a href={inicio ? '#top' : '/'} class="mono">{inicio ? 'Volver arriba ↑' : '← Volver al inicio'}</a>
+  <footer class="footer container mono">
+    <span>© {new Date().getFullYear()} Augusto Roubineau · actualizado en {actualizado}</span>
+    <a href={inicio ? '#contenido' : '/'}>{inicio ? 'Volver arriba ↑' : '← Volver al inicio'}</a>
   </footer>
 
-  <script is:inline src="/js/main.js?v=4"></script>
+  <script>
+    import '../scripts/main';
+  </script>
 </body>
 </html>

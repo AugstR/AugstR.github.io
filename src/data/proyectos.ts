@@ -1,6 +1,7 @@
 // Proyectos del CV. Cada uno tiene su tarjeta en la portada y su página de caso en /proyectos/<slug>/.
 // La captura es src/assets/proyectos/<slug>.jpg; si no hay, la tarjeta muestra las líneas de `sinCaptura`.
 // Los textos de `incluye` y `tecnica` admiten HTML (<strong>, <code>).
+// Se validan con Zod al compilar (src/content.config.ts) y las páginas los leen con listarProyectos() de ./coleccion.
 
 export type TipoProyecto = 'web' | 'app' | 'infra';
 
@@ -185,26 +186,24 @@ export const PROYECTOS: Proyecto[] = [
     etiqueta: '2023 → 2026 · TP UADE',
     titulo: 'Este sitio',
     tipo: 'web',
-    descripcion: 'Nació como TP de la materia Desarrollo Web en 2023 y lo rediseñé en 2026 con Astro: el contenido sale de un archivo de datos, con diseño propio y modo claro/oscuro.',
-    tags: ['Astro', 'HTML / CSS / JS'],
+    descripcion: 'Nació como TP de la materia Desarrollo Web en 2023 y lo rediseñé en 2026 con Astro y una estética de ficha técnica: contenido validado con Zod, transiciones entre páginas y el CV en PDF generado desde los mismos datos.',
+    tags: ['Astro', 'TypeScript', 'CSS'],
     caso: {
       contexto: 'Mi CV online. Empezó como trabajo práctico y hoy es el lugar donde reúno experiencia, formación y proyectos.',
       incluye: [
         'Experiencia, formación, skills, idiomas y una página por proyecto.',
-        'Modo claro y oscuro que recuerda la preferencia, y filtro de proyectos por tipo.',
+        'Filtro de proyectos por tipo y modo claro/oscuro que recuerda la preferencia.',
+        '<strong>CV en PDF</strong> (<code>/cv.pdf</code>) generado en cada build con los mismos datos que la página.',
         'Datos estructurados <code>schema.org/Person</code> con la credencial de Cisco.',
       ],
       tecnica: [
-        'Generado con <strong>Astro</strong>: todo el contenido vive en archivos de datos y las páginas se arman solas.',
-        'Diseño propio en CSS, sin frameworks de estilos; capturas optimizadas a AVIF y WebP.',
-        'Se publica con <strong>GitHub Actions</strong> en cada push.',
+        'Generado con <strong>Astro</strong>: los proyectos son una <strong>Content Collection</strong> validada con <strong>Zod</strong>, así un dato mal cargado frena el build.',
+        '<strong>View Transitions</strong>: la captura de cada tarjeta se transforma en la imagen de su página de caso.',
+        'Diseño propio en CSS, sin frameworks de estilos, con IBM Plex autoalojada; capturas optimizadas a AVIF y WebP.',
+        'El PDF se arma con <strong>PDFKit</strong> durante el build y todo se publica con <strong>GitHub Actions</strong> en cada push.',
       ],
-      stack: ['Astro', 'TypeScript', 'CSS', 'GitHub Actions'],
+      stack: ['Astro', 'TypeScript', 'Zod', 'PDFKit', 'CSS', 'GitHub Actions'],
     },
     links: { codigo: 'https://github.com/AugstR/AugstR.github.io' },
   },
 ];
-
-// Capturas: src/assets/proyectos/<slug>.jpg
-const capturas = import.meta.glob<{ default: ImageMetadata }>('../assets/proyectos/*.jpg', { eager: true });
-export const capturaDe = (slug: string) => capturas[`../assets/proyectos/${slug}.jpg`]?.default;

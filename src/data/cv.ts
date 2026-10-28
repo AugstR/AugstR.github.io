@@ -99,8 +99,17 @@ export const SKILLS = [
 ];
 
 export const IDIOMAS = [
-  { idioma: 'Español', nivel: 'Nativo', porcentaje: 100 },
-  { idioma: 'Inglés', nivel: 'Intermedio-avanzado', porcentaje: 72 },
-  { idioma: 'Portugués', nivel: 'Básico', porcentaje: 30 },
+  { idioma: 'Español', nivel: 'Nativo' },
+  { idioma: 'Inglés', nivel: 'Intermedio-avanzado' },
+  { idioma: 'Portugués', nivel: 'Básico' },
 ];
+
+export const INTERESES = ['Infraestructura', 'Backup & DR', 'Cloud', 'Virtualización', 'Automatización', 'DevOps', 'Redes'];
+
+// Perfil corto para el encabezado del PDF (/cv.pdf)
+export const RESUMEN =
+  'Pasante de Ingeniería en OneCloud: implemento infraestructura de backup con Veeam, aprovisiono máquinas virtuales sobre ' +
+  'VMware Cloud Director, pruebo configuraciones en un laboratorio Nutanix y administro servidores Ubuntu por SSH. ' +
+  'Estudio Gestión de Tecnologías de la Información en UADE y mi objetivo es seguir creciendo en infraestructura, cloud y ' +
+  'automatización, hacia roles de DevOps y operaciones.';
 
