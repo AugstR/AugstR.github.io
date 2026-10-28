@@ -207,16 +207,16 @@ main:focus { outline: none; }
 
 .s-box { fill: var(--surface); stroke: var(--text); stroke-width: 1; }
 .s-box--key { stroke-width: 1.8; }
+.s-box--next { fill: none; stroke: var(--muted); stroke-dasharray: 5 4; }
 .s-k { font: 500 9.5px var(--mono); letter-spacing: .06em; fill: var(--muted); }
 .s-t { font: 500 13.5px var(--sans); fill: var(--text); }
+.s-line { stroke: var(--accent); stroke-width: 1.6; }
 .s-flow { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 4 5; animation: flujo 1.4s linear infinite; }
 .s-head { fill: var(--accent); }
 .s-chip { fill: var(--accent-soft); stroke: var(--accent); stroke-width: .8; }
 .s-chip-t { font: 500 10px var(--mono); fill: var(--accent); }
-.s-lock { fill: none; stroke: var(--text); stroke-width: 1.6; }
-.s-bad { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 3 4; }
-.s-bad-t { font: 500 10px var(--mono); fill: var(--warn); }
-.s-x { stroke: var(--warn); stroke-width: 2.2; fill: none; }
+.s-chip--next { fill: none; stroke: var(--muted); }
+.s-chip-t--next { fill: var(--muted); }
 @keyframes flujo { to { stroke-dashoffset: -18; } }
 
 /* Cuadro de datos al pie del hero, como el rótulo de un plano */
