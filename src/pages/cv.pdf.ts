@@ -1,27 +1,24 @@
-// CV en PDF (/cv.pdf). Se genera en cada build con los mismos datos que la página,
-// así nunca queda desactualizado respecto del sitio.
+// CV en PDF (/cv.pdf): una página, generada en cada build. El contenido está en src/data/cv-pdf.ts
+// y los datos de contacto y formación salen de src/data/cv.ts, los mismos que usa la página.
 import type { APIRoute } from 'astro';
 import PDFDocument from 'pdfkit';
-import { EMAIL, EXPERIENCIA, FORMACION, GITHUB, IDIOMAS, LINKEDIN, RESUMEN, SKILLS } from '../data/cv';
-import { listarProyectos } from '../data/coleccion';
+import { CREDLY_CCNA, EMAIL, GITHUB, LINKEDIN } from '../data/cv';
+import { EXPERIENCIA_PDF, IDIOMAS_PDF, PERFIL, PROYECTOS_PDF, SKILLS_PDF, TITULO, UBICACION } from '../data/cv-pdf';
 
 const SITIO = 'https://augstr.github.io';
 // Fuentes completas de IBM Plex (OFL). Las de @fontsource son subconjuntos que PDFKit no puede leer.
 const fuente = (archivo: string) => `${process.cwd()}/src/assets/fuentes-pdf/${archivo}`;
-const sinHtml = (s: string) => s.replace(/<[^>]+>/g, '');
 
 const TINTA = '#17191c';
 const GRIS = '#565b62';
 const ACENTO = '#1f47c4';
-const LINEA = '#d6d2c6';
+const LINEA = '#c9c5b8';
 
 export const GET: APIRoute = async () => {
-  const proyectos = await listarProyectos();
-
   const doc = new PDFDocument({
     size: 'A4',
-    margins: { top: 46, bottom: 46, left: 52, right: 52 },
-    info: { Title: 'CV · Augusto Roubineau', Author: 'Augusto Roubineau', Subject: 'Infraestructura, backup y cloud' },
+    margins: { top: 40, bottom: 36, left: 50, right: 50 },
+    info: { Title: 'CV · Augusto Roubineau', Author: 'Augusto Roubineau', Subject: TITULO },
   });
   doc.registerFont('sans', fuente('IBMPlexSans-Regular.woff'));
   doc.registerFont('sans-negrita', fuente('IBMPlexSans-SemiBold.woff'));
@@ -38,94 +35,83 @@ export const GET: APIRoute = async () => {
 
   const izq = doc.page.margins.left;
   const ancho = doc.page.width - izq - doc.page.margins.right;
-  const colFecha = 92; // columna de fechas
-  const xCuerpo = izq + colFecha + 12;
-  const anchoCuerpo = ancho - colFecha - 12;
+  const sangria = 11; // texto de las viñetas
 
-  const espacio = (alto: number) => {
-    if (doc.y + alto > doc.page.height - doc.page.margins.bottom) doc.addPage();
-  };
-  const regla = (color: string, grosor: number) => {
-    doc.moveTo(izq, doc.y).lineTo(izq + ancho, doc.y).lineWidth(grosor).strokeColor(color).stroke();
-  };
   const seccion = (titulo: string) => {
-    espacio(140); // que el título no quede solo al pie de la página
-    doc.moveDown(1);
-    regla(TINTA, .8);
-    doc.moveDown(.45);
+    doc.moveDown(.9);
     doc.font('mono').fontSize(7.5).fillColor(ACENTO).text(titulo.toUpperCase(), izq, doc.y, { characterSpacing: .8 });
-    doc.moveDown(.5);
+    doc.moveTo(izq, doc.y + 1.5).lineTo(izq + ancho, doc.y + 1.5).lineWidth(.6).strokeColor(TINTA).stroke();
+    doc.y += 6;
   };
-  // Fila con la fecha a la izquierda y el contenido a la derecha
-  const fila = (fecha: string, cuerpo: () => void) => {
-    espacio(60);
+  // Título a la izquierda y fecha alineada a la derecha, en la misma línea
+  const encabezado = (titulo: string, detalle: string, fecha: string) => {
     const y = doc.y;
-    doc.font('mono').fontSize(7.5).fillColor(GRIS).text(fecha, izq, y + 1.5, { width: colFecha });
-    doc.y = y;
-    cuerpo();
-    doc.x = izq;
-    doc.moveDown(.55);
+    doc.font('mono').fontSize(7.5).fillColor(GRIS).text(fecha, izq, y + 2, { width: ancho, align: 'right' });
+    doc.font('sans-negrita').fontSize(10.5).fillColor(TINTA).text(titulo, izq, y, { continued: true })
+      .font('sans').fillColor(GRIS).text(`  ·  ${detalle}`);
+    doc.y += 1.5;
+  };
+  const vineta = (texto: string) => {
+    const y = doc.y;
+    doc.font('sans').fontSize(9.3).fillColor(GRIS).text('–', izq + 1, y);
+    doc.fillColor(TINTA).text(texto, izq + sangria, y, { width: ancho - sangria, lineGap: .6 });
+    doc.y += 1;
   };
 
   // Encabezado
-  doc.font('sans-negrita').fontSize(22).fillColor(TINTA).text('Augusto Roubineau', izq, doc.y);
-  doc.font('sans').fontSize(10.5).fillColor(GRIS).text('Pasante de Ingeniería en OneCloud · Infraestructura, backup y cloud · Buenos Aires');
+  doc.font('sans-negrita').fontSize(21).fillColor(TINTA).text('Augusto Roubineau', izq, doc.y);
+  doc.font('mono').fontSize(8).fillColor(ACENTO).text(TITULO.toUpperCase(), { characterSpacing: .6 });
   doc.moveDown(.35);
-  doc.font('mono').fontSize(8).fillColor(ACENTO);
-  const contactos: [string, string][] = [
+  const contactos: [string, string | null][] = [
     [EMAIL, `mailto:${EMAIL}`],
+    ['LinkedIn', LINKEDIN],
     ['augstr.github.io', `${SITIO}/`],
-    ['linkedin', LINKEDIN],
-    ['github.com/AugstR', GITHUB],
+    ['GitHub', GITHUB],
+    [UBICACION, null],
   ];
+  doc.font('sans').fontSize(8.5);
   contactos.forEach(([texto, url], i) => {
     const ultimo = i === contactos.length - 1;
-    doc.fillColor(ACENTO).text(texto, { link: url, continued: !ultimo, underline: false });
-    if (!ultimo) doc.fillColor(LINEA).text('   ·   ', { link: null, continued: true });
+    doc.fillColor(url ? ACENTO : GRIS).text(texto, { link: url, continued: !ultimo });
+    if (!ultimo) doc.fillColor(LINEA).text('  |  ', { link: null, continued: true });
   });
-  doc.moveDown(.8);
-  doc.font('sans').fontSize(9.5).fillColor(TINTA).text(RESUMEN, { width: ancho, lineGap: 1.5 });
 
-  // Experiencia
+  seccion('Perfil');
+  doc.font('sans').fontSize(9.6).fillColor(TINTA).text(PERFIL, izq, doc.y, { width: ancho, lineGap: 1 });
+
   seccion('Experiencia');
-  for (const t of EXPERIENCIA) {
-    fila(t.fecha, () => {
-      doc.font('sans-negrita').fontSize(10.5).fillColor(TINTA).text(t.puesto, xCuerpo, doc.y, { width: anchoCuerpo, continued: true })
-        .font('sans').fillColor(GRIS).text(`  ·  ${t.empresa}, ${t.lugar}`);
-      if (t.resumen) doc.font('sans').fontSize(9).fillColor(GRIS).text(t.resumen, xCuerpo, doc.y + 2, { width: anchoCuerpo });
-      for (const l of t.logros ?? []) {
-        doc.font('sans').fontSize(9).fillColor(TINTA).text(`–  ${sinHtml(l)}`, xCuerpo, doc.y + 2, { width: anchoCuerpo, indent: 0, lineGap: 1 });
-      }
-    });
+  EXPERIENCIA_PDF.forEach((t, i) => {
+    if (i > 0) doc.moveDown(.45);
+    encabezado(t.puesto, t.empresa, t.fecha);
+    t.tareas.forEach(vineta);
+    if (t.logros) {
+      doc.moveDown(.2);
+      doc.font('sans-negrita').fontSize(9.3).fillColor(TINTA).text('Logros', izq, doc.y);
+      doc.y += 1;
+      t.logros.forEach(vineta);
+    }
+  });
+
+  seccion('Skills técnicas');
+  for (const [area, items] of SKILLS_PDF) {
+    doc.font('sans-negrita').fontSize(9.3).fillColor(TINTA).text(`${area}: `, izq, doc.y, { width: ancho, continued: true })
+      .font('sans').text(items, { lineGap: .6 });
+    doc.y += 1;
   }
 
-  // Formación
-  seccion('Formación');
-  for (const e of FORMACION) {
-    fila(e.fecha, () => {
-      doc.font('sans-negrita').fontSize(10).fillColor(TINTA).text(e.titulo, xCuerpo, doc.y, { width: anchoCuerpo });
-      doc.font('sans').fontSize(9).fillColor(GRIS).text(e.institucion, { width: anchoCuerpo });
-      if (e.detalle) doc.text(e.detalle, { width: anchoCuerpo });
-      if (e.credencial) doc.font('mono').fontSize(8).fillColor(ACENTO).text('Credencial en Credly', { link: e.credencial.url, width: anchoCuerpo });
-    });
-  }
-
-  // Proyectos
   seccion('Proyectos');
-  for (const p of proyectos) {
-    fila(p.etiqueta, () => {
-      doc.font('sans-negrita').fontSize(10).fillColor(TINTA).text(p.titulo, xCuerpo, doc.y, { width: anchoCuerpo, continued: true })
-        .font('mono').fontSize(7.5).fillColor(ACENTO).text(`   ${SITIO.replace('https://', '')}/proyectos/${p.slug}/`, { link: `${SITIO}/proyectos/${p.slug}/` });
-      doc.font('sans').fontSize(9).fillColor(GRIS).text(p.descripcion, xCuerpo, doc.y + 1, { width: anchoCuerpo, link: null });
-    });
-  }
+  doc.font('sans').fontSize(9.3).fillColor(TINTA).text(PROYECTOS_PDF, izq, doc.y, { width: ancho, lineGap: .6, continued: true })
+    .fillColor(ACENTO).text('  Ver proyectos ↗', { link: `${SITIO}/#proyectos` });
 
-  // Skills e idiomas
-  seccion('Skills');
-  doc.font('sans').fontSize(9.5).fillColor(TINTA).text(SKILLS.join('  ·  '), izq, doc.y, { width: ancho, lineGap: 2 });
-  seccion('Idiomas');
-  doc.font('sans').fontSize(9.5).fillColor(TINTA)
-    .text(IDIOMAS.map((i) => `${i.idioma} (${i.nivel.toLowerCase()})`).join('  ·  '), izq, doc.y, { width: ancho });
+  seccion('Formación, certificaciones e idiomas');
+  encabezado('Lic. en Gestión de Tecnologías de la Información', 'UADE', '2023 – Actualidad');
+  doc.moveDown(.25);
+  encabezado('CCNA: Introduction to Networks', 'Cisco Networking Academy', 'Jul 2026');
+  doc.font('sans').fontSize(9.3).fillColor(TINTA).text('Certificado; sigo con los próximos módulos del CCNA.  ', izq, doc.y, { continued: true })
+    .fillColor(ACENTO).text('Credencial en Credly ↗', { link: CREDLY_CCNA });
+  doc.moveDown(.45);
+  doc.font('sans-negrita').fontSize(9.3).fillColor(TINTA).text('Idiomas: ', izq, doc.y, { continued: true })
+    .font('sans').text(IDIOMAS_PDF, { link: null });
 
   doc.end();
   return new Response(await listo, { headers: { 'Content-Type': 'application/pdf' } });

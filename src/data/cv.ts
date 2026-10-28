@@ -106,10 +106,4 @@ export const IDIOMAS = [
 
 export const INTERESES = ['Infraestructura', 'Backup & DR', 'Cloud', 'Virtualización', 'Automatización', 'DevOps', 'Redes'];
 
-// Perfil corto para el encabezado del PDF (/cv.pdf)
-export const RESUMEN =
-  'Pasante de Ingeniería en OneCloud: implemento infraestructura de backup con Veeam, aprovisiono máquinas virtuales sobre ' +
-  'VMware Cloud Director, pruebo configuraciones en un laboratorio Nutanix y administro servidores Ubuntu por SSH. ' +
-  'Estudio Gestión de Tecnologías de la Información en UADE y mi objetivo es seguir creciendo en infraestructura, cloud y ' +
-  'automatización, hacia roles de DevOps y operaciones.';
 

@@ -11,7 +11,7 @@ Tiene modo claro/oscuro. Publicado en https://augstr.github.io/.
   Para actualizar el CV se editan esos archivos; el diseño no se toca.
 - **Los proyectos son una Content Collection** validada con **Zod** (`src/content.config.ts`):
   un dato mal cargado (un link que no es URL, un tipo que no existe) frena el build en lugar de publicarse.
-- **CV en PDF** (`/cv.pdf`): lo arma **PDFKit** en cada build con los mismos datos que la página.
+- **CV en PDF** (`/cv.pdf`): lo arma **PDFKit** en cada build, en una página. Su texto está en `src/data/cv-pdf.ts`.
 - **View Transitions** (`<ClientRouter />`): la captura de cada tarjeta se transforma en la imagen de su página de caso.
 - **Diseño propio** en CSS, sin frameworks de estilos, con estética de ficha técnica: reglas finas, columna de
   etiquetas, un diagrama SVG en el hero y un cuadro de datos al pie, como el rótulo de un plano.
@@ -20,7 +20,8 @@ Tiene modo claro/oscuro. Publicado en https://augstr.github.io/.
 
 | Archivo | Qué hace |
 |---|---|
-| `src/data/cv.ts` | Trabajos, estudios, skills, idiomas, intereses y el resumen del PDF |
+| `src/data/cv.ts` | Trabajos, estudios, skills, idiomas e intereses |
+| `src/data/cv-pdf.ts` | El contenido del CV en PDF (una página): perfil, experiencia con logros, skills por área |
 | `src/data/proyectos.ts` | Los proyectos: tarjeta, tipo, caso completo y links |
 | `src/content.config.ts` | El esquema Zod que valida los proyectos |
 | `src/data/coleccion.ts` | `listarProyectos()` (ya validados y en orden) y `capturaDe(slug)` |
