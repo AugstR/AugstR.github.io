@@ -44,7 +44,7 @@ export const EXPERIENCIA_PDF: TrabajoPdf[] = [
       'Inventario de hardware, proveedores, soporte remoto (Beyond) y VPN (Ivanti y Netskope).',
     ],
     logros: [
-      'Lideré la migración de Windows 10 a 11 en el 100% de los puestos de la empresa.',
+      'Participé en la migración de Windows 10 a 11 en el 100% de los puestos de la empresa.',
       'Modernicé todas las salas de reuniones con videoconferencia integrada a Teams y paneles de reserva.',
       'Implementé el sistema embebido de impresoras Ricoh: tóner automático y reportes por usuario y sede.',
       'Coordiné el cierre de una oficina: integración con otra unidad de negocio, traslado de equipos y baja de servicios sin pérdida de datos.',
