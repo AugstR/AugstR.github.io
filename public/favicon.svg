@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <!-- Basado en la firma de Augusto: A en punta, la R baja al mismo vértice y su pierna termina en un bucle
-       que vuelve hasta la pata derecha de la A. En azul, el travesaño largo y la diagonal final. -->
+       que cierra donde arranca la diagonal azul. En azul, el travesaño largo y la diagonal final. -->
   <rect width="32" height="32" rx="4" fill="#f3f1ea"/>
   <rect x=".5" y=".5" width="31" height="31" rx="3.5" fill="none" stroke="#17191c" stroke-opacity=".25"/>
   <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5.5 26.5 L10.5 5 L15 27 M15 27 L15 7.5 M15 7.5 C22.5 5.5 24 14 16.5 15.5 L22 26.5 C24.8 27.4 26.4 25 25.2 23.4 C24 21.8 21.6 22.6 20.4 23.8 C18.6 25.6 16.2 24.2 13.8 21" stroke="#17191c"/>
+    <path d="M5.5 26.5 L10.5 5 L15 27 M15 27 L15 7.5 M15 7.5 C22.5 5.5 24 14 16.5 15.5 L22 26.5 C24.8 27.4 26.4 25 25.2 23.4 C24 21.8 21.6 22.6 20.4 23.8 C18.9 25.1 16.8 26.4 15 27" stroke="#17191c"/>
     <path d="M2.5 18.5 L25 16.3 M2.5 18.5 L15 27 L28.5 4.5" stroke="#1f47c4"/>
   </g>
 </svg>
