@@ -110,7 +110,8 @@ main:focus { outline: none; }
   border-bottom: 1px solid var(--line);
 }
 .nav__inner { display: flex; align-items: center; gap: 24px; height: 60px; }
-.nav__brand { font-weight: 600; font-size: .98rem; white-space: nowrap; }
+.nav__brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: .98rem; white-space: nowrap; }
+.nav__mark { width: 38px; height: 34px; flex: none; color: var(--text); }
 .nav__path { color: var(--muted); font-weight: 400; }
 
 .nav__links { display: flex; align-items: center; gap: 2px; margin-left: auto; }

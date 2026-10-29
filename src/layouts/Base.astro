@@ -67,7 +67,13 @@ const actualizado = new Date().toLocaleDateString('es-AR', { month: 'long', year
   <header class="nav">
     <div class="nav__inner container">
       <a href={inicio ? '#contenido' : '/'} class="nav__brand">
-        Augusto Roubineau <span class="nav__path mono">/ cv</span>
+        <svg class="nav__mark" viewBox="1.5 3.5 28 25" aria-hidden="true">
+          <g fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5.5 26.5 L10.5 5 L15 27 M15 27 L15 7.5 M15 7.5 C22.5 5.5 24 14 16.5 15.5 L22 26.5 C24.8 27.4 26.4 25 25.2 23.4 C24 21.8 21.6 22.6 20.4 23.8 C18.9 25.1 16.8 26.4 15 27" stroke="currentColor"/>
+            <path d="M2.5 18.5 L25 16.3 M2.5 18.5 L15 27 L28.5 4.5" stroke="var(--accent)"/>
+          </g>
+        </svg>
+        <span>Augusto Roubineau <span class="nav__path mono">/ cv</span></span>
       </a>
 
       <nav class="nav__links" id="menu" aria-label="Secciones">
