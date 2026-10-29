@@ -53,7 +53,9 @@ const actualizado = new Date().toLocaleDateString('es-AR', { month: 'long', year
   <meta property="og:locale" content="es_AR">
   <meta name="twitter:card" content={ogImage.includes('/_astro/') ? 'summary_large_image' : 'summary'}>
   {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />}
-  <link rel="icon" href="/img/Logo.png">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <script is:inline>
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
